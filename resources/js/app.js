@@ -8,6 +8,12 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+Vue.use(VueRouter)
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -17,10 +23,35 @@ window.Vue = require('vue');
  */
 
 // const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+//  ;files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
+
+
+import custom from './components/CustomComponent.vue' ;
+import example from './components/ExampleComponent.vue' ;
+
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Vue.component('home', require('./components/HomeComponent.vue').default);
+
+
+
+Vue.component('pagination', require('laravel-vue-pagination'));
+
+
+const routes = [
+    { path: '/example', component: example },
+    { path: '/custom', component: custom }
+  ]
+
+
+  const router = new VueRouter({
+    routes , // short for `routes: routes` ,
+    mode: 'history'
+
+  })
+  
+  
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -28,5 +59,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  */
 
 const app = new Vue({
+
     el: '#app',
+    router: router
 });

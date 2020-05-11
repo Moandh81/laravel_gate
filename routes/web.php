@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -33,3 +36,12 @@ Route::prefix('admin')->name('admin.')->middleware('can:manage-users')->group(
         Route::resource('users', 'UserController');
     }
 );
+
+
+Route::get('/posts' , 'PostController@index') ;
+
+
+
+Route::get('{any}', function () {
+    return view('welcome');
+})->where('any','.*');
